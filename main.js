@@ -23,7 +23,7 @@ class App {
         this.initLights();
         this.initMoon();
         this.initStars();
-        this.initDustLines();
+        // this.initDustLines();
         this.initPostProcessing();
         this.initScrollAnimations();
         this.initResize();
@@ -97,8 +97,8 @@ class App {
         this.meshGroup = new THREE.Group();
         this.parallaxGroup.add(this.meshGroup);
 
-        // VERY large moon - so it fills the bottom of the screen like a horizon
-        const moonRadius = this.isMobile ? 12 : 18;
+        // Making the moon smaller
+        const moonRadius = this.isMobile ? 8 : 12;
         const detail = this.isMobile ? 96 : 128;
 
         // Moon geometry
@@ -253,8 +253,7 @@ class App {
         this.meshGroup.add(this.moonHalo);
 
         // Position moon FAR below - only the top curve is visible (like the sketch)
-        // The moon is huge (radius 18), so placing Y at -22 means only the top ~3 units peek above
-        this.meshGroup.position.set(0, -(moonRadius + (this.isMobile ? 6 : 8)), 0);
+        this.meshGroup.position.set(0, -(moonRadius + (this.isMobile ? 4 : 5)), 0);
     }
 
     // 4. Create starfield background
@@ -585,11 +584,11 @@ class App {
         gsap.set('#sec-hero', { autoAlpha: 1, y: 0, pointerEvents: 'auto' });
         gsap.set(['#sec-about', '#sec-cv', '#sec-projects', '#sec-contact'], { autoAlpha: 0, y: 30, pointerEvents: 'none' });
 
-        const moonRadius = this.isMobile ? 12 : 18;
-        // Starting Y: moon mostly hidden below (only top curve peeks up)
-        const startY = -(moonRadius + (this.isMobile ? 6 : 8));
+        const moonRadius = this.isMobile ? 8 : 12;
+        // Starting Y: moon mostly hidden below
+        const startY = -(moonRadius + (this.isMobile ? 4 : 5));
         // End Y: moon rises but not all the way to full moon
-        const endY = -(moonRadius + (this.isMobile ? 3 : 5.5));
+        const endY = -(moonRadius + (this.isMobile ? 2 : 3));
 
         // Scroll Timeline
         this.scrollTimeline = gsap.timeline({
